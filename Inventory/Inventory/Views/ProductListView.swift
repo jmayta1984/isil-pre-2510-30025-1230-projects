@@ -9,12 +9,18 @@ import SwiftUI
 
 struct ProductListView: View {
     
+    @StateObject var viewModel = ProductListViewModel()
     @State var showDetail = false
     
     var body: some View {
         NavigationStack {
             List {
-                
+                ForEach(viewModel.products) { product in
+                    Text(product.name)
+                }
+                .onDelete { indexSet in
+                    viewModel.deleteProduct(indexSet: indexSet)
+                }
             }
             .navigationTitle("Inventory")
             .toolbar {
@@ -29,7 +35,9 @@ struct ProductListView: View {
                 }
             }
             .sheet(isPresented: $showDetail) {
-                ProductDetailView()
+                ProductDetailView { product in
+                    viewModel.addProduct(product: product)
+                }
             }
         }
     }
