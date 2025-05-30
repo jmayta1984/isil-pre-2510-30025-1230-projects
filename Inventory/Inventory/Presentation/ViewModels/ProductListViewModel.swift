@@ -18,4 +18,7 @@ class ProductListViewModel: ObservableObject {
         products.remove(atOffsets: indexSet)
     }
     
+    func updateProduct(product: Product) {
+       products = products.map { $0.id == product.id ? product : $0 }
+    }
 }
