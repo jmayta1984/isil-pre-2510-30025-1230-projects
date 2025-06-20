@@ -63,9 +63,8 @@ struct HomeView: View {
                     }
                 }
             }
-            .padding()
             .navigationTitle("Easy Shoes")
-            .scrollIndicators(.hidden)
+            //.scrollIndicators(.hidden)
         }
     }
 }

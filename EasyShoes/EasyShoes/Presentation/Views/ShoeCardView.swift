@@ -15,7 +15,8 @@ struct ShoeCardView: View {
                 AsyncImage(url: URL(string: shoe.image)) { phase in
                     switch phase {
                     case .empty:
-                        EmptyView()
+                        ProgressView()
+                            .aspectRatio(contentMode: .fill)
                             .frame(width: 120, height: 120)
                             .frame(maxWidth: .infinity)
                     case .success(let image):
