@@ -15,28 +15,43 @@ struct SearchCocktailView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                TextField("Search", text: $query)
-                Button {
-                    viewModel.searchCocktails(query: query)
-                } label: {
-                    Text("Search")
+                
+                HStack {
+                    TextField("Search", text: $query)
+                        .autocorrectionDisabled()
+                    Button {
+                        viewModel.searchCocktails(query: query)
+                    } label: {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundStyle(.gray)
+                    }
                 }
+                .padding()
+                .background(.gray.opacity(0.1))
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+
+                
+                
                 if !viewModel.cocktails.isEmpty {
                     List {
                         ForEach(viewModel.cocktails) { cocktail in
-                            Text(cocktail.name)
+                            CocktailListItemView(cocktail: cocktail)
                                 .onTapGesture {
                                     selectedCocktail = cocktail
                                 }
                         }
                     }
-                    .listStyle(PlainListStyle())
+                    .listStyle(.plain)
+                } else {
+                    Spacer()
+                    Text("No cocktails")
+                    Spacer()
                 }
-                Spacer()
+                
                 
             }
-            .navigationDestination(item: $selectedCocktail) { cocktail in
-                Text(cocktail.name)
+            .sheet(item: $selectedCocktail) { cocktail in
+                CocktailDetailView(cocktail: cocktail)
             }
             
         }

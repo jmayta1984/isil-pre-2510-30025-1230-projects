@@ -11,7 +11,7 @@ import SwiftUI
 struct EasyCocktailsApp: App {
     var body: some Scene {
         WindowGroup {
-            SearchCocktailView()
+            ContentView()
         }
     }
 }

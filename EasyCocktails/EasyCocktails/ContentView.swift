@@ -8,14 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel = FavoriteListViewModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            Tab("Search", systemImage: "magnifyingglass") {
+                SearchCocktailView()
+            }
+            Tab("Favorites", systemImage: "heart") {
+                FavoriteListView()
+            }
         }
-        .padding()
+        .tint(.black)
+        .environmentObject(viewModel)
     }
 }
 
