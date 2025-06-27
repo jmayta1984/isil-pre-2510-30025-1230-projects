@@ -14,8 +14,13 @@ struct FavoriteListView: View {
             List {
                 ForEach(viewModel.favorites) { favorite in
                     CocktailListItemView(cocktail: favorite)
+                }.onDelete { indexSet in
+                    if let index = indexSet.first {
+                        viewModel.removeFavorite(favorite: viewModel.favorites[index])
+                    }
                 }
             }
+            .listStyle(.plain)
         }
     }
 }

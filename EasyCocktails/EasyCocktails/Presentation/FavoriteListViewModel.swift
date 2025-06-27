@@ -8,16 +8,30 @@
 import Foundation
 
 class FavoriteListViewModel: ObservableObject {
+    
     @Published var favorites = [Cocktail] ()
+    let cocktailDAO = CocktailDAO()
     
     func addFavorite(favorite: Cocktail) {
-        favorites.append(favorite)
+        cocktailDAO.insertCocktail(cocktail: favorite)
+        getAllFavorites()
     }
     
     func removeFavorite(favorite: Cocktail) {
-        favorites.removeAll { cocktail in
-            favorite.id == cocktail.id
-        }
+        cocktailDAO.deleteCocktail(id: favorite.id)
+        getAllFavorites()
+    }
+    
+    func getAllFavorites() {
+        favorites = cocktailDAO.fetchAll()
+    }
+    
+    func checkFavorite(favorite: Cocktail) -> Bool {
+        return favorites.contains(favorite)
+    }
+    
+    init() {
+        getAllFavorites()
     }
 }
 

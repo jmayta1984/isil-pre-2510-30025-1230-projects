@@ -80,6 +80,8 @@ struct CocktailDetailView: View {
             
             Spacer()
         }
-        
+        .onAppear {
+            isFavorite = viewModel.checkFavorite(favorite: cocktail)
+        }
     }
 }
